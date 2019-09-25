@@ -33,8 +33,11 @@ public class PollResponse {
     @Getter
     @Setter
     private Boolean isExpired;
-
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Getter
+    @Setter
     private Long selectedChoice;
+    @Getter
+    @Setter
     private Long totalVotes;
 }
