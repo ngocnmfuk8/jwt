@@ -1,6 +1,8 @@
 package com.ngocnm.jwt.polls.model;
 
 import com.ngocnm.jwt.polls.model.audit.DateAudit;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,49 +27,25 @@ import javax.persistence.UniqueConstraint;
 public class Vote extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Setter
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "poll_id", nullable = false)
+    @Getter
+    @Setter
     private Poll poll;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "choice_id", nullable = false)
+    @Getter
+    @Setter
     private Choice choice;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
+    @Getter
+    @Setter
     private User user;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Poll getPoll() {
-        return poll;
-    }
-
-    public void setPoll(Poll poll) {
-        this.poll = poll;
-    }
-
-    public Choice getChoice() {
-        return choice;
-    }
-
-    public void setChoice(Choice choice) {
-        this.choice = choice;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

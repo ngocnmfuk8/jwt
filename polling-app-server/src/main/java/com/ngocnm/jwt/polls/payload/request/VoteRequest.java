@@ -1,5 +1,8 @@
 package com.ngocnm.jwt.polls.payload.request;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotNull;
 
 /**
@@ -7,14 +10,8 @@ import javax.validation.constraints.NotNull;
  */
 public class VoteRequest {
     @NotNull
+    @Getter
+    @Setter
     private Long choiceId;
-
-    public Long getChoiceId() {
-        return choiceId;
-    }
-
-    public void setChoiceId(Long choiceId) {
-        this.choiceId = choiceId;
-    }
 }
 

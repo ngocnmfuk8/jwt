@@ -1,5 +1,8 @@
 package com.ngocnm.jwt.polls.payload.request;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -9,13 +12,7 @@ import javax.validation.constraints.Size;
 public class ChoiceRequest {
     @NotBlank
     @Size(max = 40)
+    @Getter
+    @Setter
     private String text;
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 }

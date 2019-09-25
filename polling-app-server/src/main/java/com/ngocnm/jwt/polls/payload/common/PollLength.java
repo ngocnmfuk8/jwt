@@ -1,5 +1,8 @@
 package com.ngocnm.jwt.polls.payload.common;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
@@ -9,25 +12,13 @@ import javax.validation.constraints.NotNull;
 public class PollLength {
     @NotNull
     @Max(7)
+    @Getter
+    @Setter
     private Integer days;
 
     @NotNull
     @Max(23)
+    @Getter
+    @Setter
     private Integer hours;
-
-    public int getDays() {
-        return days;
-    }
-
-    public void setDays(int days) {
-        this.days = days;
-    }
-
-    public int getHours() {
-        return hours;
-    }
-
-    public void setHours(int hours) {
-        this.hours = hours;
-    }
 }

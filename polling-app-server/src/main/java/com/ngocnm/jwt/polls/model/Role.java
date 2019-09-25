@@ -1,5 +1,8 @@
 package com.ngocnm.jwt.polls.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.Column;
@@ -14,40 +17,24 @@ import javax.persistence.Table;
 /**
  * @author NgocNM
  */
+@NoArgsConstructor
 @Entity
 @Table(name = "roles")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
+    @Setter
     private Long id;
 
     @Enumerated(EnumType.STRING)
     @NaturalId
     @Column(length = 60)
+    @Getter
+    @Setter
     private RoleName name;
-
-    public Role() {
-
-    }
 
     public Role(RoleName name) {
         this.name = name;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public RoleName getName() {
-        return name;
-    }
-
-    public void setName(RoleName name) {
-        this.name = name;
-    }
-
 }

@@ -1,35 +1,19 @@
 package com.ngocnm.jwt.polls.payload.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author NgocNM
  */
 public class ChoiceResponse {
+    @Getter
+    @Setter
     private long id;
+    @Getter
+    @Setter
     private String text;
+    @Getter
+    @Setter
     private long voteCount;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public long getVoteCount() {
-        return voteCount;
-    }
-
-    public void setVoteCount(long voteCount) {
-        this.voteCount = voteCount;
-    }
-
 }

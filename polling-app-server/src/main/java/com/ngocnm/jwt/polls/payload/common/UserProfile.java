@@ -1,16 +1,31 @@
 package com.ngocnm.jwt.polls.payload.common;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.Instant;
 
 /**
  * @author NgocNM
  */
 public class UserProfile {
+    @Getter
+    @Setter
     private Long id;
+    @Getter
+    @Setter
     private String username;
+    @Getter
+    @Setter
     private String name;
+    @Getter
+    @Setter
     private Instant joinedAt;
+    @Getter
+    @Setter
     private Long pollCount;
+    @Getter
+    @Setter
     private Long voteCount;
 
     public UserProfile(Long id, String username, String name, Instant joinedAt, Long pollCount, Long voteCount) {
@@ -19,54 +34,6 @@ public class UserProfile {
         this.name = name;
         this.joinedAt = joinedAt;
         this.pollCount = pollCount;
-        this.voteCount = voteCount;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Instant getJoinedAt() {
-        return joinedAt;
-    }
-
-    public void setJoinedAt(Instant joinedAt) {
-        this.joinedAt = joinedAt;
-    }
-
-    public Long getPollCount() {
-        return pollCount;
-    }
-
-    public void setPollCount(Long pollCount) {
-        this.pollCount = pollCount;
-    }
-
-    public Long getVoteCount() {
-        return voteCount;
-    }
-
-    public void setVoteCount(Long voteCount) {
         this.voteCount = voteCount;
     }
 }

@@ -1,6 +1,8 @@
 package com.ngocnm.jwt.polls.payload.request;
 
 import com.ngocnm.jwt.polls.payload.common.PollLength;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -14,38 +16,20 @@ import java.util.List;
 public class PollRequest {
     @NotBlank
     @Size(max = 140)
+    @Getter
+    @Setter
     private String question;
 
     @NotNull
     @Size(min = 2, max = 6)
     @Valid
+    @Getter
+    @Setter
     private List<ChoiceRequest> choices;
 
     @NotNull
     @Valid
+    @Getter
+    @Setter
     private PollLength pollLength;
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public List<ChoiceRequest> getChoices() {
-        return choices;
-    }
-
-    public void setChoices(List<ChoiceRequest> choices) {
-        this.choices = choices;
-    }
-
-    public PollLength getPollLength() {
-        return pollLength;
-    }
-
-    public void setPollLength(PollLength pollLength) {
-        this.pollLength = pollLength;
-    }
 }
