@@ -1,14 +1,11 @@
 package com.ngocnm.jwt.polls.controller;
 
 import com.ngocnm.jwt.polls.model.Poll;
-import com.ngocnm.jwt.polls.payload.response.ApiResponse;
 import com.ngocnm.jwt.polls.payload.common.PagedResponse;
 import com.ngocnm.jwt.polls.payload.request.PollRequest;
-import com.ngocnm.jwt.polls.payload.response.PollResponse;
 import com.ngocnm.jwt.polls.payload.request.VoteRequest;
-import com.ngocnm.jwt.polls.repository.PollRepository;
-import com.ngocnm.jwt.polls.repository.UserRepository;
-import com.ngocnm.jwt.polls.repository.VoteRepository;
+import com.ngocnm.jwt.polls.payload.response.ApiResponse;
+import com.ngocnm.jwt.polls.payload.response.PollResponse;
 import com.ngocnm.jwt.polls.security.CurrentUser;
 import com.ngocnm.jwt.polls.security.UserPrincipal;
 import com.ngocnm.jwt.polls.service.PollService;
@@ -16,6 +13,7 @@ import com.ngocnm.jwt.polls.util.AppConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,16 +34,6 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/polls")
 public class PollController {
-
-    @Autowired
-    private PollRepository pollRepository;
-
-    @Autowired
-    private VoteRepository voteRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
     @Autowired
     private PollService pollService;
 
@@ -68,22 +56,27 @@ public class PollController {
                 .buildAndExpand(poll.getId()).toUri();
 
         return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "Poll Created Successfully"));
+                .body(new ApiResponse(HttpStatus.OK, "Poll Created Successfully", poll));
     }
 
 
     @GetMapping("/{pollId}")
-    public PollResponse getPollById(@CurrentUser UserPrincipal currentUser,
+    public ResponseEntity<?> getPollById(@CurrentUser UserPrincipal currentUser,
                                     @PathVariable Long pollId) {
-        return pollService.getPollById(pollId, currentUser);
+        PollResponse poll = pollService.getPollById(pollId, currentUser);
+        return ResponseEntity.ok(new ApiResponse(HttpStatus.OK, poll));
     }
 
     @PostMapping("/{pollId}/votes")
     @PreAuthorize("hasRole('USER')")
-    public PollResponse castVote(@CurrentUser UserPrincipal currentUser,
+    public ResponseEntity<?> castVote(@CurrentUser UserPrincipal currentUser,
                                  @PathVariable Long pollId,
                                  @Valid @RequestBody VoteRequest voteRequest) {
-        return pollService.castVoteAndGetUpdatedPoll(pollId, voteRequest, currentUser);
-    }
+        PollResponse poll = pollService.castVoteAndGetUpdatedPoll(pollId, voteRequest, currentUser);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{pollId}/votes")
+                .buildAndExpand(poll.getId()).toUri();
 
+        return ResponseEntity.created(location).body(new ApiResponse(HttpStatus.OK, "cast vote successfully", poll));
+    }
 }
